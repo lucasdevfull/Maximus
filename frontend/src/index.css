@@ -1,0 +1,17 @@
+@import 'tailwindcss/base';
+@import'tailwindcss/components';
+@import'tailwindcss/utilities';
+@import './styles/inputs.css';
+@import './styles/button.css';
+
+@layer base {
+    body {
+       @apply bg-gray-50 dark:bg-gray-900
+    }
+}
+
+@layer components {
+    .container{
+        @apply  mx-auto
+    }
+}
