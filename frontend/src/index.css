@@ -1,5 +1,7 @@
 @import './styles/inputs.css';
 @import './styles/button.css';
+@config "../tailwind.config.js";
+
 @tailwind utilities;
 @tailwind base;
 @tailwind components;
