@@ -2,7 +2,7 @@ import { Link, useLoaderData } from "react-router-dom";
 import { ProdutoProps } from "@/props/produto";
 
 export function ProdutoTable() {
-    const produtos: ProdutoProps[] = useLoaderData<ProdutoProps[]>();
+    const produtos = useLoaderData() as ProdutoProps[];
     return (
         <>
             <table className="divide-y divide-gray-200 bg-gray-50 dark:bg-gray-700 w-full">

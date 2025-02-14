@@ -21,7 +21,7 @@ export function ProdutoForm() {
     return (
         <form onSubmit={filter}>
             <div className="flex flex-wrap gap-4 justify-end mx-auto mt-8 w-full">
-                <select defaultValue={'Fabricante'} ref={fabricanteRef}  name="fabricante" id="fabricante" className="px-2 py-1 sm:w-28 md:w-36 bg-white dark:bg-gray-800 text-sm font-normal text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-700 outline-none transition-all placeholder-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500">
+                <select defaultValue={'Fabricante'} ref={fabricanteRef}  name="fabricante" id="fabricante" className="px-2 py-1 sm:w-28 md:w-36 bg-white dark:bg-gray-800 text-sm font-normal text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-700 outline-hidden transition-all placeholder-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500">
                     <option  selected>Fabricante</option>
                     {/* Renderização das opções de fabricantes */}
                     {/* Substitua por um loop ou mapeamento dos dados conforme necessário */}
@@ -33,7 +33,7 @@ export function ProdutoForm() {
                     })}
                 </select>
 
-                <select defaultValue={'Categoria'} ref={categoriaRef} name="categoria" id="categoria" className="px-2 py-1 sm:w-28 md:w-36 bg-white dark:bg-gray-800 text-sm font-normal text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-700 outline-none transition-all placeholder-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500">
+                <select defaultValue={'Categoria'} ref={categoriaRef} name="categoria" id="categoria" className="px-2 py-1 sm:w-28 md:w-36 bg-white dark:bg-gray-800 text-sm font-normal text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-700 outline-hidden transition-all placeholder-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500">
                     <option  selected>Categoria</option>
                     {/* Renderização das opções de categorias */}
                     {/* Substitua por um loop ou mapeamento dos dados conforme necessário */}

@@ -4,7 +4,7 @@ import { Input } from "@/components/inputs";
 import { Action } from "@/props/action";
 
 export function RegisterForm() {
-    const action = useActionData<Action>();
+    const action = useActionData() as Action;
     
     return (
         <>
