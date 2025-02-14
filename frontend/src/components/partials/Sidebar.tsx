@@ -2,7 +2,7 @@ import { Form, Link } from "react-router-dom";
 import { Fragment, useState } from "react";
 
 export function Sidebar() {
-    const [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState<boolean>(false);
     
     const toggleSidebar = () => {
       setIsOpen(!isOpen);

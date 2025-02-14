@@ -1,33 +1,36 @@
 from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 from django.db import transaction, IntegrityError
+from django.db.models import Q
 from rest_framework import status
 from rest_framework.parsers import JSONParser
 from rest_framework.request import Request
 from rest_framework.response import Response
+from rest_framework.pagination import PageNumberPagination
 from rest_framework.renderers import JSONRenderer, BrowsableAPIRenderer
-from rest_framework.permissions import IsAuthenticated
 from ..serializers import ProdutoSerializer
 from ..models import Produto
 
 
 class ProdutoListView(APIView):
 
-    permission_classes = [IsAuthenticated]
-    parser_classes = [JSONParser]
+    #permission_classes = [IsAuthenticated]
     model = Produto
     serializer = ProdutoSerializer
-
+    
     def get(self, request: Request) -> Response:
         fabricante = request.query_params.get('fabricante')
         categoria = request.query_params.get('categoria')
-        produtos = self.model.objects.all()
 
-        if categoria:
-            produtos = produtos.filter(categoria_id=int(categoria))
-
+        query = Q()
+        if categoria and fabricante:
+            query &= Q(fabricante_id=fabricante, categoria_id=categoria)
         if fabricante:
-            produtos = produtos.filter(fabricante_id=int(fabricante))
+            query &= Q(fabricante_id=fabricante)
+        if categoria:
+            query &= Q(categoria_id=categoria)
+
+        produtos = self.model.objects.filter(query)
 
         serializer = self.serializer(produtos, many=True)
         return Response(serializer.data)
@@ -35,17 +38,15 @@ class ProdutoListView(APIView):
 
 class ProdutoView(APIView):
 
-    parser_classes = [JSONParser]
-    renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
     model = Produto
     serializer = ProdutoSerializer
     def get(self, request: Request) -> Response:
         produtos = self.model.objects.all()
-
-        serializer = self.serializer(produtos, many=True)
-
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
+        page = PageNumberPagination()
+        result = page.paginate_queryset(produtos, request)  
+        serializer = self.serializer(result, many=True)
+        #return Response(serializer.data, status=status.HTTP_200_OK)
+        return page.get_paginated_response(serializer.data)
     def post(self, request: Request) -> Response:
 
         serializer = self.serializer(data=request.data)

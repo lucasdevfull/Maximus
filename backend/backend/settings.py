@@ -38,15 +38,24 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # extenções api
+    
+]
+
+EXTERNAL_LIBRARIES = [
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
-    #api
+    
+]
+
+APPS = [
     'authentication',
     'produtos',
     
 ]
+
+INSTALLED_APPS += EXTERNAL_LIBRARIES
+INSTALLED_APPS += APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -56,9 +65,13 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    #
+]
+
+EXTERNAL_MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
 ]
+
+MIDDLEWARE += EXTERNAL_MIDDLEWARE
 
 ROOT_URLCONF = 'backend.urls'
 
@@ -87,7 +100,7 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 #DATABASES = {
@@ -150,11 +163,12 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',  # Autenticação por token
     ),
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',  # Permissão para usuários autenticados
+        #'rest_framework.permissions.IsAuthenticated',  # Permissão para usuários autenticados
     ),
     'DEFAULT_RENDERER_CLASSES': [
         'rest_framework.renderers.JSONRenderer',
         'rest_framework.renderers.BrowsableAPIRenderer',
+        
     ],
     'DEFAULT_PARSER_CLASSES': [
         'rest_framework.parsers.JSONParser',
@@ -162,6 +176,8 @@ REST_FRAMEWORK = {
         'rest_framework.parsers.MultiPartParser',
         'rest_framework.parsers.FileUploadParser', 
     ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 3,
  
 }
 

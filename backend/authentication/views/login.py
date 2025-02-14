@@ -12,9 +12,14 @@ from rest_framework import status
 class LoginAPIView(APIView):
 
     permission_classes = [AllowAny]
-    renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
     model = Token
     serializer = LoginSerializer
+    
+    def get(self, request: Request) -> Response:
+        return Response(
+            {'detail': 'Método não permitido'},
+            status=status.HTTP_405_METHOD_NOT_ALLOWED,
+        )
     
     def post(self, request: Request) -> Response:
         serializer = self.serializer(data=request.data)
@@ -35,8 +40,3 @@ class LoginAPIView(APIView):
             )
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def get(self, request: Request) -> Response:
-        return Response(
-            {'detail': 'Método não permitido'},
-            status=status.HTTP_405_METHOD_NOT_ALLOWED,
-        )

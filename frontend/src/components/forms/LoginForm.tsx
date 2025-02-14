@@ -4,7 +4,7 @@ import { Input } from "@/components/inputs";
 import { Action } from "@/props/action";
 
 export function LoginForm() {
-    const action = useActionData() as Action;
+    const action = useActionData<Action>();
     return (
         <>
             {action?.errors && <Errors>{action.errors}</Errors>}

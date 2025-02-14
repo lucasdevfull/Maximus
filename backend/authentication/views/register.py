@@ -10,7 +10,6 @@ from ..serializers import UserSerializer
 
 class RegisterAPIView(GenericAPIView):
     permission_classes = [AllowAny]
-    renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
     serializer_class = UserSerializer
 
     def post(self, request: Request) -> Response:
